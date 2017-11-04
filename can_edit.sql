@@ -1,69 +1,112 @@
--- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
---
--- Host: 127.0.0.1
--- Generation Time: Mar 04, 2017 at 01:38 PM
--- Server version: 10.1.10-MariaDB
--- PHP Version: 5.6.19
+<?php
+include_once('include/header.php');
+	//insert into database
+if($_SERVER['REQUEST_METHOD']=='POST')	
+{    
+    $file=$_POST['file'];
+	$sender=$_POST['sender'];
+	$reciver_name=$_POST['reciver_name'];
+	$sender_name=$_POST['sender_name'];
+	
+		if(!empty($file)&&!empty($sender))
+		{
+			
+			$SQL ="INSERT INTO can_edit (sender,sender_name,reciver,reciver_name,file_id) VALUES ('$userId','$sender_name','$sender','$reciver_name','$file')";
+				mysql_real_escape_string($SQL);
+				$result = mysql_query($SQL) or die (mysql_error());
+			
+		}
+		
+}
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
+?>
 
+	</div>
+		<br>
+	<br>
+	<div class="container-fluid">
+  <h2>Can Edit</h2>
+</div
+	
+	><div class="container-fluid">
+<div class="col-md-4">
+<form   method="POST" action="canedit.php">
+		
+<?php
+  $query = "SELECT * from users where userId!=$userId";
+$result = mysql_query($query) or die(mysql_error()."[".$query."]");?>
+<div class="form-group">
+<label> Reciver</label>
+    <select class="form-control" name='sender'>
+<?php while ($row = mysql_fetch_array($result)){
+?>
+   <option value="<?php echo $row['userId'];?>">
+     <?php echo $row['userName']; ?>
+    </option>
+<?php
+}
+?>       
+</select>
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+ </div>
+ <?php
+  $query = "SELECT * from users where userId!=$userId";
+$result = mysql_query($query) or die(mysql_error()."[".$query."]");?>
+	<div class="form-group">
+<label>Confirm Reciver</label>
+ <select class="form-control" name='reciver_name'>
+<?php while ($row = mysql_fetch_array($result)){
+?>
+   <option value="<?php echo $row['userName'];?>">
+     <?php echo $row['userName']; ?>
+    </option>
+<?php
+}
+?>        
+</select>
+</div>
 
---
--- Database: `dbtest`
---
+ <?php
+  $query = "SELECT * from users where userId=$userId";
+$result = mysql_query($query) or die(mysql_error()."[".$query."]");?>
+	<div class="form-group">
+<label>Sender</label>
+ <select class="form-control" name='sender_name'>
+<?php while ($row = mysql_fetch_array($result)){
+?>
+   <option value="<?php echo $row['userName'];?>">
+     <?php echo $row['userName']; ?>
+    </option>
+<?php
+}
+?>        
+</select>
+</div>
+ 
+ <?php
+  $query = "SELECT * from tbl_uploads where userId=$userId";
+  $result = mysql_query($query) or die(mysql_error()."[".$query."]");?>
+<div class="form-group">
+<label>Select File</label>
+    <select class="form-control" name="file" >
+<?php while ($row = mysql_fetch_array($result)){
+?>
+   <option value="<?php echo $row['file'];?>">
+     <?php echo $row['file'];?>
+    </option>
+<?php
+}
+?>        
+</select>
 
--- --------------------------------------------------------
+<br>
+  <input class="form-control" type="submit" value="submit" >
+</form>
 
---
--- Table structure for table `can_edit`
---
+ </div>
+ </div>
+ 
+    <script src="assets/jquery-1.11.3-jquery.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+</body>
 
-CREATE TABLE `can_edit` (
-  `id` int(11) NOT NULL,
-  `sender` int(11) NOT NULL,
-  `sender_name` varchar(30) NOT NULL,
-  `reciver` int(11) NOT NULL,
-  `reciver_name` varchar(30) NOT NULL,
-  `file_id` varchar(1000) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `can_edit`
---
-
-INSERT INTO `can_edit` (`id`, `sender`, `sender_name`, `reciver`, `reciver_name`, `file_id`) VALUES
-(1, 2, 'sai', 1, 'chaitanya', '32173-resume.pdf'),
-(2, 2, 'sai', 1, 'chaitanya', '32173-resume.pdf'),
-(3, 1, 'chaitanya', 2, 'sai', '93033-resume-(1).pdf'),
-(4, 1, 'chaitanya', 2, 'manoj', '41074-pdfjoiner.pdf');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `can_edit`
---
-ALTER TABLE `can_edit`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `can_edit`
---
-ALTER TABLE `can_edit`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
