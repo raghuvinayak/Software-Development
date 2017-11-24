@@ -23,6 +23,13 @@
 	$sender_name=$_POST['sender_name'];
 	
 		if(!empty($file)&&!empty($sender))
+{
+	
+    $SQL ="INSERT INTO can_edit (sender,sender_name,reciver,reciver_name,file_id) VALUES ('$userId','$sender_name','$sender','$reciver_name','$file')";
+        mysql_real_escape_string($SQL);
+        $result = mysql_query($SQL) or die (mysql_error());
+	
+}
 		
 	}
 
