@@ -41,10 +41,7 @@ include_once 'dbconnect.php';
             <li><a href="view.php">My files</a></li>
 			
 			<li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">sent files <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-           <li><a href="view_send.php">can view</a></li>
-			<li><a href="edit_send.php">can edit</a></li>
+          a></li>
           </ul>
         </li>
 		<li class="dropdown">
