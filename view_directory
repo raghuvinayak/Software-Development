@@ -44,20 +44,7 @@ $dir_id=$_GET['dir_id'];
 			$errMSG = "Directory has been deleted successfully.";
 	}
 }
-if($_GET['act']=='update_status' && $_GET['edit_id']!='' && $_GET['current_status']!=''){
-$edit_id=$_GET['edit_id'];
-if($_GET['current_status']==1)
-$status=0;
-else if($_GET['current_status']==0)
-$status=1;
-	$sqlQuery="select * from tbl_directory where dir_id='$edit_id'";
-	$rsQuery=mysql_query($sqlQuery) or die($sqlQuery.' '.mysql_error());
-	if(mysql_num_rows($rsQuery)>0){
-		$sqlInsert="UPDATE tbl_directory SET dir_status='$status' where dir_id='$edit_id'";
-		$res=mysql_query($sqlInsert) or die($sqlInsert.' '.mysql_error());
-		    $error = true;
-			$errTyp = "danger";
-			$errMSG = "Directory status has been updated successfully.";
+
 	}
 }
 
