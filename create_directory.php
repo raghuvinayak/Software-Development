@@ -56,7 +56,27 @@ if ( isset($_POST['update-directory']) )
 			$errTyp = "danger";
 			$errMSG = "Directory Name must contain alphabets and space.";
 		}
+		else if( !$error ) {
 		
+		        if(is_dir($base_path.'/'.$directory_name)){
+				    $oldFoldername=htmlspecialchars(strip_tags(strtolower(str_replace($_POST['oldFoldername']))));
+					$dir_id=htmlspecialchars(strip_tags($_POST['dir_id']));
+		            $userFoldername=strtolower(str_replace(' ','_',$name));
+					
+					
+					$sqlQuery="select * from tbl_directory where dir_userId='$userId' and dir_name='$userFoldername'";
+					$rsQuery=mysql_query($sqlQuery) or die($sqlQuery.' '.mysql_error());
+					if(mysql_num_rows($rsQuery)<1){
+					echo $base_path.'/'.$directory_name.'/'.$oldFoldername;
+					echo $base_path.'/'.$directory_name.'/'.$userFoldername;
+					rename($base_path.'/'.$directory_name.'/'.$oldFoldername,$base_path.'/'.$directory_name.'/'.$userFoldername);
+					echo $sqlInsert="UPDATE tbl_directory SET dir_name='$userFoldername' where dir_id='$dir_id'";
+					die;
+					$res=mysql_query($sqlInsert) or die($sqlInsert.' '.mysql_error());
+					$errTyp = "success";
+					$errMSG = "Directory created Successfully ";
+					 unset($name); 
+					 echo"<script>window.location='view_directory.php';</script>";
 			     }
 			     else{
 				  $errTyp = "danger";
