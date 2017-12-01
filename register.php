@@ -18,7 +18,7 @@
 		
 		$email = trim($_POST['email']);
 		$email = strip_tags($email);
-		$email = htmlspecialchars($email);
+		$email = htmlspecialchars();
 		
 		$pass = trim($_POST['pass']);
 		$pass = strip_tags($pass);
@@ -47,7 +47,7 @@
 			$count = mysql_num_rows($result);
 			if($count!=0){
 				$error = true;
-				$emailError = "Provided Email is already in use.";
+				
 			}
 		}
 		// password validation
